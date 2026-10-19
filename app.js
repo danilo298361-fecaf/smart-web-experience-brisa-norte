@@ -11,7 +11,7 @@
 
   /* ===================== CONFIGURAÇÃO ===================== */
   var CONFIG = {
-    WEBHOOK_URL: 'COLE_AQUI_A_URL_DO_WEBHOOK_DO_MAKE', /* ex.: https://hook.us2.make.com/abc123... */
+    WEBHOOK_URL: 'https://hook.us2.make.com/j9h1c77c7ytvxthej7cl5kvo2e3lvpu6', /* ex.: https://hook.us2.make.com/abc123... */
     WHATSAPP: '5566999990000',                         /* número fictício da empresa */
     TIMEOUT_MS: 25000
   };
