@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assistente e Calculadora | Brisa Norte Climatização</title>
+  <meta name="description" content="Calcule os BTUs do seu ambiente e descreva o problema do seu ar-condicionado: nossa IA indica o serviço e a urgência e prepara a mensagem para o WhatsApp.">
+  <meta name="theme-color" content="#0b5cab">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- Menu: os links de Serviços e Contato voltam para a página principal (feita no Webflow) -->
+  <header class="menu" data-menu>
+    <div class="conteiner menu__barra">
+      <a class="marca" href="/">Brisa Norte</a>
+      <button class="menu__botao" type="button" aria-expanded="false" aria-controls="menu-links">
+        <span class="menu__icone" aria-hidden="true"></span>
+        <span class="visualmente-oculto">Abrir menu</span>
+      </button>
+      <nav id="menu-links" class="menu__links" aria-label="Navegação principal">
+        <a href="/#servicos">Serviços</a>
+        <a href="#calculadora">Calculadora</a>
+        <a href="#assistente">Assistente IA</a>
+        <a href="/#duvidas">Dúvidas</a>
+        <a href="/#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="topo" aria-labelledby="titulo-topo">
+      <div class="conteiner">
+        <p class="eyebrow">Atendimento inteligente</p>
+        <h1 id="titulo-topo">Descubra o aparelho certo e peça atendimento em segundos</h1>
+        <p class="lead">Use a calculadora para estimar os BTUs do seu ambiente. Depois, conte o que está acontecendo:
+          a inteligência artificial indica o serviço e a urgência e prepara a mensagem para o WhatsApp.</p>
+        <div class="topo__acoes">
+          <a class="btn" href="#assistente">Falar com o assistente</a>
+          <a class="btn btn--linha" href="#calculadora">Abrir a calculadora</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CALCULADORA DE BTUs ===================== -->
+    <section class="secao secao--gelo" id="calculadora" aria-labelledby="titulo-calc">
+      <div class="conteiner">
+        <p class="eyebrow">Calculadora</p>
+        <h2 id="titulo-calc">Quantos BTUs o seu ambiente precisa?</h2>
+        <p class="lead">Mude os valores e veja na hora o tamanho de aparelho indicado.</p>
+
+        <div class="bn-calc">
+          <form class="bn-calc__campos" id="bn-calc-form" aria-describedby="bn-calc-obs">
+            <div><label for="bn-area">Área do ambiente (m²)</label>
+              <input id="bn-area" type="number" inputmode="decimal" min="4" max="200" step="1" value="15"></div>
+            <div><label for="bn-sol">Sol da tarde?</label>
+              <select id="bn-sol"><option value="0">Não</option><option value="1">Sim</option></select></div>
+            <div><label for="bn-pessoas">Pessoas no ambiente</label>
+              <input id="bn-pessoas" type="number" inputmode="numeric" min="1" max="50" value="2"></div>
+            <div><label for="bn-eletro">Eletrônicos (TV, PC)</label>
+              <input id="bn-eletro" type="number" inputmode="numeric" min="0" max="20" value="1"></div>
+          </form>
+          <div class="bn-calc__saida" aria-live="polite">
+            <span>Aparelho indicado:</span>
+            <output class="bn-calc__valor" id="bn-calc-res" for="bn-area bn-sol bn-pessoas bn-eletro">12.000 BTUs</output>
+            <p class="bn-calc__obs" id="bn-calc-obs">Estimativa: <span id="bn-calc-bruto">10.200</span> BTUs calculados.
+              O dimensionamento final é confirmado na visita técnica.</p>
+          </div>
+          <a class="bn-calc__ponte" href="#assistente">Já sabe o tamanho? Peça a instalação ao assistente</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ASSISTENTE COM IA ===================== -->
+    <section class="secao" id="assistente" aria-labelledby="titulo-assistente">
+      <div class="conteiner">
+        <p class="eyebrow">Assistente com IA</p>
+        <h2 id="titulo-assistente">Conte o que está acontecendo</h2>
+        <p class="lead">A inteligência artificial classifica sua solicitação, indica o serviço e a urgência,
+          e prepara a mensagem para você enviar no WhatsApp.</p>
+
+        <div class="bn-ai" id="bn-ai">
+          <form id="bn-ai-form" novalidate>
+            <div class="bn-ai__grid">
+              <div>
+                <label for="bn-nome">Seu nome</label>
+                <input id="bn-nome" name="nome" type="text" autocomplete="given-name" required maxlength="60"
+                       aria-describedby="bn-nome-erro">
+                <p id="bn-nome-erro" class="bn-ai__erro" aria-live="polite"></p>
+              </div>
+              <div>
+                <label for="bn-tipo">Tipo de cliente</label>
+                <select id="bn-tipo" name="tipo_cliente">
+                  <option value="residencial">Residência</option>
+                  <option value="comercial">Comércio / escritório</option>
+                  <option value="industrial">Indústria / agronegócio</option>
+                </select>
+              </div>
+              <div class="bn-ai__full">
+                <label for="bn-msg">Como podemos ajudar?</label>
+                <textarea id="bn-msg" name="mensagem" required minlength="15" maxlength="600"
+                          aria-describedby="bn-msg-dica bn-msg-erro"
+                          placeholder="Ex.: Meu ar-condicionado do quarto está pingando água e fazendo barulho."></textarea>
+                <p id="bn-msg-dica" class="bn-ai__hint">Entre 15 e 600 caracteres. Não informe senhas ou dados bancários.</p>
+                <p id="bn-msg-erro" class="bn-ai__erro" aria-live="polite"></p>
+                <p class="bn-ai__hint" id="bn-ex-titulo">Ou toque em um exemplo:</p>
+                <ul class="bn-ai__chips" aria-labelledby="bn-ex-titulo">
+                  <li><button type="button" class="bn-ai__chip">Meu ar está pingando água dentro do quarto</button></li>
+                  <li><button type="button" class="bn-ai__chip">Quero instalar um split de 12.000 BTUs na sala</button></li>
+                  <li><button type="button" class="bn-ai__chip">Preciso de manutenção mensal para 8 aparelhos da minha loja</button></li>
+                </ul>
+              </div>
+              <!-- Campo-armadilha contra robôs: pessoas não veem nem preenchem -->
+              <div class="bn-ai__hp" aria-hidden="true">
+                <label for="bn-site">Não preencha este campo</label>
+                <input id="bn-site" name="site" type="text" tabindex="-1" autocomplete="off">
+              </div>
+              <div class="bn-ai__full">
+                <button type="submit" class="btn bn-ai__enviar" id="bn-ai-enviar">
+                  <span class="bn-ai__spin" aria-hidden="true"></span>
+                  <span class="bn-ai__btn-txt">Analisar minha solicitação</span>
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <p id="bn-ai-status" class="bn-ai__hint" role="status" aria-live="polite"></p>
+
+          <section class="bn-ai__result" id="bn-ai-result" hidden aria-labelledby="bn-ai-result-titulo">
+            <h3 id="bn-ai-result-titulo" tabindex="-1">Resultado da análise</h3>
+            <div class="bn-ai__tags">
+              <span class="bn-ai__tag" id="bn-r-categoria"></span>
+              <span class="bn-ai__tag" id="bn-r-urgencia"></span>
+            </div>
+            <p class="bn-ai__servico" id="bn-r-servico"></p>
+            <p class="bn-ai__resposta" id="bn-r-resposta"></p>
+            <ul class="bn-ai__perguntas" id="bn-r-perguntas"></ul>
+            <div class="bn-ai__acoes">
+              <a class="btn btn--zap" id="bn-r-zap" href="#" target="_blank" rel="noopener">Enviar resumo pelo WhatsApp</a>
+              <button type="button" class="btn btn--linha" id="bn-r-nova">Fazer nova análise</button>
+            </div>
+            <p class="bn-ai__fonte" id="bn-r-fonte"></p>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- Transparência: como a IA é usada (ajuda o cliente a confiar) -->
+    <section class="secao secao--gelo" id="como-usamos-ia" aria-labelledby="titulo-ia">
+      <div class="conteiner">
+        <p class="eyebrow">Transparência</p>
+        <h2 id="titulo-ia">Como usamos a inteligência artificial</h2>
+        <ol class="passos">
+          <li><h3>Você descreve</h3><p>Sua mensagem vai para uma automação segura, sem expor chaves de acesso no site.</p></li>
+          <li><h3>A IA faz a triagem</h3><p>O Google Gemini classifica o serviço e a urgência. Ele nunca informa preço nem prazo.</p></li>
+          <li><h3>Uma pessoa confirma</h3><p>Nossa equipe recebe o resumo no WhatsApp e confirma o orçamento e o horário.</p></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="conteiner rodape__grade">
+      <p>© <span data-ano>2026</span> Brisa Norte Climatização · empresa fictícia para fins acadêmicos</p>
+      <p>Projeto UniFECAF · Padrões Web para No-Code e Low-Code · <a href="/">Voltar ao site</a></p>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

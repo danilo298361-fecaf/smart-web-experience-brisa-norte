@@ -1,0 +1,167 @@
+/* ==========================================================
+   BRISA NORTE — Assistente e Calculadora (Webflow Cloud)
+   Mesmas cores e fontes da página principal feita no Webflow,
+   para o visitante sentir que está no mesmo site.
+   ========================================================== */
+
+/* 1) Design tokens: os mesmos valores das variáveis do Webflow */
+:root {
+  --bn-azul: #0b5cab;          /* contraste 6,7:1 sobre branco */
+  --bn-azul-escuro: #083f75;
+  --bn-gelo: #eef6ff;
+  --bn-texto: #0f172a;
+  --bn-texto-suave: #475569;
+  --bn-borda: #cbd5e1;
+  --bn-fundo: #ffffff;
+  --bn-verde: #15803d;
+  --bn-verde-escuro: #166534;
+  --bn-alerta: #c2410c;
+  --bn-raio: 14px;
+  --bn-sombra: 0 10px 30px rgba(15, 23, 42, .10);
+  --bn-foco: 3px solid #f59e0b;
+  --bn-altura-menu: 72px;
+  --bn-display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --bn-corpo: "Figtree", "Segoe UI", system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bn-altura-menu) + 12px); }
+body {
+  margin: 0; background: var(--bn-fundo); color: var(--bn-texto);
+  font-family: var(--bn-corpo); font-size: 17px; line-height: 1.6;
+}
+h1, h2, h3 { font-family: var(--bn-display); line-height: 1.1; margin: 0; text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+a { color: var(--bn-azul); }
+
+.conteiner { max-width: 940px; margin-inline: auto; padding-inline: 20px; }
+.visualmente-oculto { position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* 2) Acessibilidade: foco visível e link de pular conteúdo */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
+textarea:focus-visible, [tabindex]:focus-visible { outline: var(--bn-foco); outline-offset: 3px; border-radius: 6px; }
+.skip-link { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--bn-azul-escuro);
+  color: #fff; padding: 10px 16px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: top .2s; }
+.skip-link:focus { top: 12px; }
+
+/* 3) Menu fixo (mesmo visual do Navbar do Webflow) */
+.menu { position: sticky; top: 0; z-index: 50; background: #fff; transition: box-shadow .2s; }
+.menu.is-scrolled { box-shadow: 0 4px 18px rgba(15, 23, 42, .12); }
+.menu__barra { display: flex; align-items: center; min-height: var(--bn-altura-menu); gap: 16px; }
+.marca { font-family: var(--bn-display); font-weight: 800; font-size: 20px; color: var(--bn-texto); text-decoration: none; }
+.menu__links { margin-left: auto; display: flex; gap: 28px; }
+.menu__links a { color: var(--bn-texto); text-decoration: none; font-weight: 600; font-size: 15px; }
+.menu__links a:hover { color: var(--bn-azul); }
+.menu__botao { display: none; margin-left: auto; width: 44px; height: 44px; border: 0; border-radius: 8px;
+  background: transparent; cursor: pointer; }
+.menu__icone, .menu__icone::before, .menu__icone::after { display: block; width: 20px; height: 2px;
+  background: var(--bn-texto); margin-inline: auto; position: relative; transition: transform .2s; }
+.menu__icone::before, .menu__icone::after { content: ""; position: absolute; left: 0; }
+.menu__icone::before { top: -6px; } .menu__icone::after { top: 6px; }
+.menu__botao[aria-expanded="true"] { background: var(--bn-gelo); }
+
+@media (max-width: 767px) {
+  .menu__botao { display: block; }
+  .menu__links { display: none; position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; gap: 0;
+    background: #fff; border-bottom: 1px solid var(--bn-borda); }
+  .menu__links.is-open { display: flex; }
+  .menu__links a { padding: 14px 20px; }
+}
+
+/* 4) Seções e textos (mesmos tamanhos da página principal) */
+.topo { background: var(--bn-gelo); padding-block: 72px; }
+.topo h1 { font-size: clamp(2.25rem, 5vw, 3.25rem); font-weight: 800; letter-spacing: -.02em; max-width: 18ch; }
+.topo__acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.secao { padding-block: 88px; }
+.secao--gelo { background: var(--bn-gelo); }
+.secao h2 { font-size: clamp(1.875rem, 4vw, 2.5rem); font-weight: 800; }
+.eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--bn-azul); margin-bottom: 10px; }
+.lead { color: var(--bn-texto-suave); max-width: 60ch; margin-top: 16px; }
+
+/* 5) Botões */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px;
+  padding: 12px 22px; border-radius: 10px; border: 0; font: inherit; font-weight: 700; font-size: 1rem;
+  background: var(--bn-azul); color: #fff; text-decoration: none; cursor: pointer; }
+.btn:hover { background: var(--bn-azul-escuro); }
+.btn--linha { background: #fff; color: var(--bn-azul); border: 1.5px solid var(--bn-azul); }
+.btn--linha:hover { background: var(--bn-gelo); }
+.btn--zap { background: var(--bn-verde); }
+.btn--zap:hover { background: var(--bn-verde-escuro); }
+.btn[disabled] { opacity: .7; cursor: progress; }
+
+/* 6) Calculadora */
+.bn-calc { container-type: inline-size; margin-top: 32px; background: #fff; border: 1px solid var(--bn-borda);
+  border-radius: var(--bn-raio); padding: clamp(18px, 4vw, 28px); }
+.bn-calc__campos { display: grid; gap: 14px; }
+@container (min-width: 600px) { .bn-calc__campos { grid-template-columns: repeat(4, 1fr); align-items: end; } }
+.bn-calc__saida { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
+.bn-calc__valor { font-family: var(--bn-display); font-size: clamp(1.8rem, 6vw, 2.6rem); font-weight: 800;
+  color: var(--bn-azul); font-variant-numeric: tabular-nums; }
+.bn-calc__obs { font-size: .9rem; color: var(--bn-texto-suave); width: 100%; }
+.bn-calc__ponte { display: inline-block; margin-top: 14px; font-weight: 600; }
+
+/* 7) Campos de formulário (calculadora e assistente) */
+label { display: block; font-weight: 600; margin-bottom: 6px; font-size: .95rem; }
+input, select, textarea { width: 100%; font: inherit; color: inherit; min-height: 48px; padding: 12px 14px;
+  border: 1.5px solid var(--bn-borda); border-radius: 10px; background: #fff; }
+textarea { min-height: 120px; resize: vertical; }
+[aria-invalid="true"] { border-color: var(--bn-alerta); }
+
+/* 8) Assistente com IA */
+.bn-ai { container-type: inline-size; margin-top: 32px; border: 1px solid var(--bn-borda); border-radius: var(--bn-raio);
+  box-shadow: var(--bn-sombra); padding: clamp(18px, 4vw, 32px); background: #fff; }
+.bn-ai__grid { display: grid; gap: 14px; }
+@container (min-width: 560px) { .bn-ai__grid { grid-template-columns: 1fr 1fr; } .bn-ai__full { grid-column: 1 / -1; } }
+.bn-ai__hint { font-size: .9rem; color: var(--bn-texto-suave); margin-top: 6px; }
+.bn-ai__erro { font-size: .9rem; color: var(--bn-alerta); margin-top: 6px; min-height: 1.2em; }
+.bn-ai__chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; padding: 0; list-style: none; }
+.bn-ai__chip { font: inherit; font-size: .9rem; border: 1px solid var(--bn-azul); color: var(--bn-azul);
+  background: var(--bn-gelo); border-radius: 999px; padding: 8px 14px; min-height: 40px; cursor: pointer; text-align: left; }
+.bn-ai__chip:hover { background: #dbeafe; }
+.bn-ai__spin { width: 18px; height: 18px; border: 3px solid rgba(255,255,255,.4); border-top-color: #fff;
+  border-radius: 50%; animation: bn-gira .8s linear infinite; display: none; }
+.bn-ai__enviar[aria-busy="true"] .bn-ai__spin { display: inline-block; }
+@keyframes bn-gira { to { transform: rotate(360deg); } }
+.bn-ai__hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+#bn-ai-status { min-height: 1.2em; }
+.bn-ai__result { margin-top: 22px; border-top: 1px dashed var(--bn-borda); padding-top: 22px; }
+.bn-ai__result h3 { font-size: 1.25rem; margin-bottom: 12px; }
+.bn-ai__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.bn-ai__tag { font-size: .85rem; font-weight: 700; padding: 6px 12px; border-radius: 999px;
+  background: var(--bn-gelo); color: var(--bn-azul-escuro); }
+.bn-ai__tag--baixa { background: #dcfce7; color: #14532d; }   /* contraste 8,3:1 */
+.bn-ai__tag--media { background: #fef3c7; color: #713f12; }   /* contraste 7,8:1 */
+.bn-ai__tag--alta  { background: #ffedd5; color: #7c2d12; }   /* contraste 8,2:1 */
+.bn-ai__servico { font-weight: 700; color: var(--bn-azul); margin-bottom: 8px; }
+.bn-ai__resposta { margin-bottom: 12px; }
+.bn-ai__perguntas { margin: 0 0 16px; padding-left: 20px; color: var(--bn-texto-suave); }
+.bn-ai__acoes { display: flex; flex-wrap: wrap; gap: 10px; }
+.bn-ai__fonte { font-size: .8rem; color: var(--bn-texto-suave); margin-top: 14px; }
+
+/* 9) Passos da transparência (lista numerada real: a ordem importa) */
+.passos { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); counter-reset: passo; }
+.passos li { counter-increment: passo; border-top: 3px solid var(--bn-azul); padding-top: 16px; }
+.passos li::before { content: counter(passo) "."; display: block; color: var(--bn-texto); }
+.passos h3 { font-size: 1.25rem; font-weight: 600; }
+.passos p { color: var(--bn-texto-suave); margin-top: 6px; }
+
+/* 10) Rodapé (mesmo do site) */
+.rodape { background: #06294d; color: #cbd5e1; font-size: 14px; padding-block: 22px; }
+.rodape__grade { display: grid; gap: 4px; }
+.rodape a { color: #fff; }
+
+/* 11) Celular */
+@media (max-width: 478px) {
+  .topo { padding-block: 48px; }
+  .secao { padding-block: 56px; }
+}
+
+/* 12) Respeita quem pediu menos movimento no sistema */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important; }
+}
